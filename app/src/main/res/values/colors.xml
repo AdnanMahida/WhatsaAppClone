@@ -12,6 +12,7 @@
     <color name="colorPrimary">#0b6156</color>
     <color name="colorPrimaryDark">#095049</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="assetsColor">#00CC3F</color>
     <color name="lightGrey">#EDEDED</color>
     <color name="whatsAppColor">#0b6156</color>
     <color name="red">#9F0B0B</color>

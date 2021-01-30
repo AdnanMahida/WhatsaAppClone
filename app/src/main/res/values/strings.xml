@@ -9,4 +9,7 @@
     <string name="facebook">FACEBOOK</string>
     <string name="from">from</string>
     <string name="todo">TODO</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
