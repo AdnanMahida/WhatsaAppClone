@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">WhatsAppClone</string>
+    <string name="welcome_to_whatsapp">Welcome to WhatsApp</string>
+    <string name="read_out_privacy_html">
+    <![CDATA[<p>Read out <font color="#DA8F5">Privacy Policy</font>. Tap "Agree and continue"</br>to accept the <font color="#DA8F5">Term of Service</font><p>]]>
+    </string>
+    <string name="read_out_privacy">Read out Privacy Policy. Tap "Agree and continue" to accept the Term of Service</string>
+    <string name="agree_and_continue">Agree and continue</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="from">from</string>
+    <string name="todo">TODO</string>
 </resources>
