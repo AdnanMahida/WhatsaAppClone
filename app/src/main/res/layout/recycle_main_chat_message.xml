@@ -11,18 +11,23 @@
 
     <com.ad.whatsappclone.util.CircleImageView
         android:id="@+id/mainChatProfilePic"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="@dimen/dp_72"
+        android:layout_height="@dimen/dp_72"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
         android:padding="@dimen/dp_6"
         android:src="@drawable/ic_person_512dp"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="2dp" />
+        app:civ_border_color="@color/darkGray"
+        app:civ_border_width="0.5dp"
+        tools:targetApi="m" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="@dimen/dp_72"
         android:background="?android:attr/listDivider" />
 
     <LinearLayout
@@ -55,11 +60,10 @@
     </LinearLayout>
 
     <View
-
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/mainChatProfilePic"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="@dimen/dp_72"
         android:background="?android:attr/listDivider" />
 
 </RelativeLayout>

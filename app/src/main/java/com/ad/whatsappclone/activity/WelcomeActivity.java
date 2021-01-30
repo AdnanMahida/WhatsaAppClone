@@ -7,9 +7,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ad.whatsappclone.R;
+import com.ad.whatsappclone.databinding.ActivityWelcomeBinding;
 
 public class WelcomeActivity extends AppCompatActivity {
+    ActivityWelcomeBinding binding;
 
     @Override
     protected void onStart() {
@@ -24,7 +25,8 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }

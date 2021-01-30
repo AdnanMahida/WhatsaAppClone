@@ -19,39 +19,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView3"
+            <LinearLayout
+                android:id="@+id/chatDetailsLinearBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_back_24"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m">
 
-            <com.ad.whatsappclone.util.CircleImageView
-                android:id="@+id/mainChatProfilePic"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:padding="@dimen/dp_6"
-                android:src="@drawable/ic_person_512dp"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/chatDetailsBtnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_back_24" />
+
+                <com.ad.whatsappclone.util.CircleImageView
+                    android:id="@+id/chatDetailsTxtProfile"
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:padding="@dimen/dp_6"
+                    android:src="@drawable/ic_person_512dp"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/chatDetailsTxtUserName"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center_vertical"
                 android:text="User"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintStart_toEndOf="@+id/mainChatProfilePic"
+                app:layout_constraintStart_toEndOf="@+id/chatDetailsLinearBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -124,10 +136,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:background="@null"
                 android:ems="10"
                 android:hint="@string/type_a_message"
-                android:background="@null"
-                android:inputType="textPersonName"
+                android:inputType="textLongMessage"
                 android:textColorHint="@color/darkGray" />
         </LinearLayout>
 
@@ -135,6 +147,7 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_3"
             android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
             android:elevation="0dp"
