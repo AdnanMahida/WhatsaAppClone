@@ -9,4 +9,6 @@
     <dimen name="dp_30">30dp</dimen>
     <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_14">14dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_56">56dp</dimen>
 </resources>

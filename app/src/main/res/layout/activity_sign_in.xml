@@ -7,7 +7,7 @@
     android:background="@color/grayBackground"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SignInActivity">
+    tools:context=".activity.SignInActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
             android:text="@string/click_for_signup" />
 
         <Button
-            android:id="@+id/signin_btn_signup"
+            android:id="@+id/signin_btn_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_8"
