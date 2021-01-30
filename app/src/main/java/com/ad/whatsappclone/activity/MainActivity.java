@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getSupportActionBar().setElevation(0);
+
         mAuth = FirebaseAuth.getInstance();
 
         binding.mainViewPager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));

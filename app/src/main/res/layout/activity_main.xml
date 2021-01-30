@@ -15,10 +15,11 @@
         android:background="@color/colorPrimary"
         android:elevation="@dimen/dp_12"
         app:tabGravity="fill"
-        app:tabIndicator="@color/white"
+        app:tabIndicatorColor="@color/white"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/white" />
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/white" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mainViewPager"
