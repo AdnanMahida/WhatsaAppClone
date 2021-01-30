@@ -12,4 +12,6 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="click_for_signup">Click for SignUp</string>
+    <string name="sign_in">Sign In</string>
 </resources>
