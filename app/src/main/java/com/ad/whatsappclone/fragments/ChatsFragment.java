@@ -1,6 +1,7 @@
 package com.ad.whatsappclone.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +48,12 @@ public class ChatsFragment extends Fragment {
         database.getReference().child(Constraints.USER_NODE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usersList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users user = dataSnapshot.getValue(Users.class);
                     user.setUserId(dataSnapshot.getKey());
                     usersList.add(user);
+                    Log.d("ERrr",dataSnapshot.getKey());
                 }
             }
 

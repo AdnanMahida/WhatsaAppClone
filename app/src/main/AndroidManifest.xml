@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsAppClone">
+        <activity android:name=".activity.ChatDetailsActivity"></activity>
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
