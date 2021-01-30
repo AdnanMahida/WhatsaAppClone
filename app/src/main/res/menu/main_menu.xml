@@ -8,6 +8,21 @@
         android:title="@string/search"
         app:showAsAction="always" />
     <item
+        android:id="@+id/main_menu_new_group"
+        android:title="@string/new_group" />
+    <item
+        android:id="@+id/main_menu_new_broadcast"
+        android:title="@string/new_broadcast" />
+    <item
+        android:id="@+id/main_menu_whatsapp_web"
+        android:title="@string/whatsapp_web" />
+    <item
+        android:id="@+id/main_menu_starred_msg"
+        android:title="@string/starred_msg" />
+    <item
+        android:id="@+id/main_menu_payment"
+        android:title="@string/payments" />
+    <item
         android:id="@+id/main_menu_setting"
         android:title="@string/setting" />
     <item

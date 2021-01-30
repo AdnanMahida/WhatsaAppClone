@@ -20,4 +20,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
     <string name="type_a_message">Type a message</string>
+    <string name="new_group">New group</string>
+    <string name="new_broadcast">New broadcast</string>
+    <string name="whatsapp_web">Whatsapp Web</string>
+    <string name="starred_msg">Starred messages</string>
+    <string name="payments">Payments</string>
 </resources>
