@@ -3,14 +3,20 @@ package com.ad.whatsappclone.fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ad.whatsappclone.R;
 import com.ad.whatsappclone.adapter.MainChatMessageAdapter;
 import com.ad.whatsappclone.databinding.FragmentChatsBinding;
 import com.ad.whatsappclone.models.Constraints;
@@ -27,6 +33,12 @@ public class ChatsFragment extends Fragment {
 
     public ChatsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     FragmentChatsBinding binding;
@@ -53,7 +65,7 @@ public class ChatsFragment extends Fragment {
                     Users user = dataSnapshot.getValue(Users.class);
                     user.setUserId(dataSnapshot.getKey());
                     usersList.add(user);
-                    Log.d("ERrr",dataSnapshot.getKey());
+                    Log.d("ERrr", dataSnapshot.getKey());
                 }
             }
 
@@ -65,4 +77,25 @@ public class ChatsFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.chat_tab_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.chat_tab_setting:
+                Toast.makeText(getContext(), "Sett", Toast.LENGTH_SHORT).show();
+//                mAuth.signOut();
+//                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+//                startActivity(intent);
+                break;
+        }
+        return true;
+    }
+
 }

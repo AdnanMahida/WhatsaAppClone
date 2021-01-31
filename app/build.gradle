@@ -39,6 +39,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    // Camera dependency
+    def camerax_version = "1.0.0-beta07"
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+    // CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha15"
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha15"
+
+
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 

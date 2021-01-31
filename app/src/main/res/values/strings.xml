@@ -14,7 +14,7 @@
     <string name="password">Password</string>
     <string name="click_for_signup">Click for SignUp</string>
     <string name="sign_in">Sign In</string>
-    <string name="setting">Setting</string>
+    <string name="setting">Settings</string>
     <string name="logout">Logout</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -25,4 +25,6 @@
     <string name="whatsapp_web">Whatsapp Web</string>
     <string name="starred_msg">Starred messages</string>
     <string name="payments">Payments</string>
+    <string name="status_privacy">Status privacy</string>
+    <string name="hold_for_video_tap_for_photo">Hold for video,tap for photo</string>
 </resources>

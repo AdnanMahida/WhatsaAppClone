@@ -1,10 +1,11 @@
 package com.ad.whatsappclone.activity;
 
-import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,12 +27,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getSupportActionBar().setElevation(0);
-
         mAuth = FirebaseAuth.getInstance();
 
+        setUpTabLayout();
+
+    }
+
+    private void setUpTabLayout() {
         binding.mainViewPager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
         binding.mainTabLayout.setupWithViewPager(binding.mainViewPager);
+        binding.mainTabLayout.getTabAt(0).setIcon(R.drawable.ic_round_camera);
+        binding.mainTabLayout.getTabAt(0).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
+        LinearLayout layout = ((LinearLayout) ((LinearLayout) binding.mainTabLayout.getChildAt(0)).getChildAt(0));
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layout.getLayoutParams();
+        layoutParams.weight = 0.5f; // e.g. 0.5f
+        layout.setLayoutParams(layoutParams);
+        binding.mainViewPager.setCurrentItem(1);
+//        binding.mainTabLayout.setScrollPosition(1,0f,true);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,15 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.main_menu_setting:
-                Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.main_menu_logout:
-                mAuth.signOut();
-                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-                startActivity(intent);
-                break;
+        if (item.getItemId() == R.id.main_menu_search) {
+            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
         }
         return true;
     }

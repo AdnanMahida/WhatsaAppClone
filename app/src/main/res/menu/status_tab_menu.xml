@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/status_tab_menu_status_privacy"
+        android:title="@string/status_privacy" />
+
+    <item
+        android:id="@+id/status_tab_menu_status_settings"
+        android:title="@string/setting" />
+</menu>
