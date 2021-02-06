@@ -21,6 +21,7 @@ import com.ad.whatsappclone.adapter.MainChatMessageAdapter;
 import com.ad.whatsappclone.databinding.FragmentChatsBinding;
 import com.ad.whatsappclone.models.Constraints;
 import com.ad.whatsappclone.models.Users;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -64,7 +65,9 @@ public class ChatsFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users user = dataSnapshot.getValue(Users.class);
                     user.setUserId(dataSnapshot.getKey());
-                    usersList.add(user);
+                    if (!user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
+                        usersList.add(user);
+                    }
                     Log.d("ERrr", dataSnapshot.getKey());
                 }
             }

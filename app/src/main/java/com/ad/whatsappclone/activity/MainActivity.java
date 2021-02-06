@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ad.whatsappclone.R;
 import com.ad.whatsappclone.adapter.FragmentsAdapter;
@@ -30,7 +32,32 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         setUpTabLayout();
+        binding.mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().hide();
+                        binding.mainTabLayout.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().show();
+                        binding.mainTabLayout.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void setUpTabLayout() {
@@ -60,5 +87,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (binding.mainTabLayout.getSelectedTabPosition() != 1) {
+            binding.mainViewPager.setCurrentItem(1);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

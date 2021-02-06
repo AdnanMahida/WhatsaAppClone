@@ -1,12 +1,17 @@
 package com.ad.whatsappclone.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
@@ -21,17 +26,21 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.ad.whatsappclone.databinding.FragmentCameraBinding;
 import com.ad.whatsappclone.models.Constraints;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class CameraFragment extends Fragment {
-
     FragmentCameraBinding binding;
+
     private static int lensFacing = CameraSelector.LENS_FACING_BACK;
+    private static final int IMAGE_REQUEST = 100;
     private Executor executor = Executors.newSingleThreadExecutor();
     private Camera camera;
 
@@ -50,10 +59,6 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment3
         binding = FragmentCameraBinding.inflate(inflater, container, false);
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-//        TabLayout tabLayout =((AppCompatActivity) getActivity()).findViewById(R.id.mainTabLayout);
-//        tabLayout.setVisibility(View.GONE);
-
         if (allPermissionsGranted()) {
             startCamera(); //start camera if permission has been granted by user
         } else {
@@ -107,7 +112,7 @@ public class CameraFragment extends Fragment {
                 .setTargetRotation(getActivity().getWindowManager().getDefaultDisplay().getRotation())
                 .build();
         preview.setSurfaceProvider(binding.cameraFragmentCameraView.createSurfaceProvider());
-        camera = cameraProvider.bindToLifecycle((LifecycleOwner) getActivity(), cameraSelector, preview, imageAnalysis, imageCapture);
+        camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis, imageCapture);
 
 
 //        captureBtn.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +146,28 @@ public class CameraFragment extends Fragment {
 //        });
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            try {
+
+//                if (data != null) {
+//                    Uri imageUri = data.getData();
+//                    Intent intent = new Intent(getActivity(), ity.class);
+//                    intent.putExtra("imageUri", imageUri.toString());
+//                    startActivity(intent);
+//                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Snackbar.make(binding.getRoot(), "You haven't picked Image", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+    }
+
     private boolean allPermissionsGranted() {
         for (String permission : Constraints.REQUIRED_PERMISSION) {
             if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
@@ -148,5 +175,43 @@ public class CameraFragment extends Fragment {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Constraints.PERMISSION_REQUEST_CODE) {
+            if (allPermissionsGranted()) {
+                startCamera();
+            } else {
+                displayNeverAskAgainDialog();
+//                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+//                this.finish();
+            }
+        }
+    }
+
+    public void displayNeverAskAgainDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("We need to capture & save Image for performing necessary task. Please permit the permission through "
+                + "Settings screen.\n\nSelect Permissions -> Enable permission");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Permit Manually", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent();
+                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getActivity().finish();
+            }
+        });
+        builder.show();
     }
 }

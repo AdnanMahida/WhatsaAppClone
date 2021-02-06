@@ -132,19 +132,21 @@
                 android:src="@drawable/ic_outline_emoji_24" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/edtMessage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:background="@null"
                 android:ems="10"
                 android:hint="@string/type_a_message"
-                android:inputType="textLongMessage"
+                android:inputType="textLongMessage|textMultiLine"
                 android:textColorHint="@color/darkGray" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/btnSendMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_3"

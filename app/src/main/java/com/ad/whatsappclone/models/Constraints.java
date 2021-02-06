@@ -4,6 +4,7 @@ import android.Manifest;
 
 public class Constraints {
     public static final String USER_NODE = "Users";
+    public static final String CHATS_NODE = "Chats";
 
 
     public static final int PERMISSION_REQUEST_CODE = 100;
