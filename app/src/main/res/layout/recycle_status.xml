@@ -6,6 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -13,23 +16,25 @@
         android:id="@+id/recycleStatusLayout"
         android:layout_width="@dimen/dp_72"
         android:layout_height="@dimen/dp_72">
-    <com.ad.whatsappclone.util.CircleImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:padding="6dp"
-        android:src="@mipmap/ic_launcher" />
 
-    <com.devlomi.circularstatusview.CircularStatusView
-        android:id="@+id/circular_status_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        app:portion_color="@color/assetsColor"
-        app:portion_spacing="4dp"
-        app:portion_width="4dp"
-        app:portions_count="8" />
+        <com.ad.whatsappclone.util.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:padding="6dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <com.devlomi.circularstatusview.CircularStatusView
+            android:id="@+id/circular_status_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            app:portion_color="@color/assetsColor"
+            app:portion_spacing="4dp"
+            app:portion_width="4dp"
+            app:portions_count="8" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,4 +64,12 @@
 
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/mainChatProfilePic"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="@dimen/dp_14"
+        android:background="?android:attr/listDivider" />
 </RelativeLayout>
