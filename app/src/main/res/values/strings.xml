@@ -27,4 +27,7 @@
     <string name="payments">Payments</string>
     <string name="status_privacy">Status privacy</string>
     <string name="hold_for_video_tap_for_photo">Hold for video,tap for photo</string>
+    <string name="my_status">My status</string>
+    <string name="tap_to_add_status_update">Tap to add status update</string>
+    <string name="viewed_updates">Viewed updates</string>
 </resources>

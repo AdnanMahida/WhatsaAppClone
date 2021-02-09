@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:elevation="0dp"
             android:padding="@dimen/dp_16"
+            app:backgroundTint="#EDF5F7"
             app:srcCompat="@drawable/ic_edit"
-            app:tint="@color/white" />
+            app:tint="#476A6E" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -28,6 +29,92 @@
             android:elevation="0dp"
             app:srcCompat="@drawable/ic_camera"
             app:tint="@color/white" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/dp_8"
+            tools:targetApi="m">
+
+            <FrameLayout
+                android:id="@+id/statusProfileLayout"
+                android:layout_width="@dimen/dp_72"
+                android:layout_height="@dimen/dp_72"
+                android:layout_centerVertical="true">
+
+                <com.ad.whatsappclone.util.CircleImageView
+                    android:id="@+id/mainChatProfilePic"
+                    android:layout_width="@dimen/dp_72"
+                    android:layout_height="@dimen/dp_72"
+                    android:padding="@dimen/dp_6"
+                    android:src="@drawable/ic_person_512dp"
+                    app:civ_border_color="@color/darkGray"
+                    app:civ_border_width="0.5dp"
+                    tools:targetApi="m" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:padding="@dimen/dp_6"
+                    android:src="@drawable/ic_round_add_circle_12" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_toEndOf="@id/statusProfileLayout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mainChatTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp_6"
+                    android:paddingBottom="@dimen/dp_6"
+                    android:text="@string/my_status"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mainChatLastMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp_3"
+                    android:paddingBottom="@dimen/dp_3"
+                    android:text="@string/tap_to_add_status_update" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F4F4F4"
+            android:padding="@dimen/dp_10"
+            android:text="@string/viewed_updates" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/statusFragmentRecycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

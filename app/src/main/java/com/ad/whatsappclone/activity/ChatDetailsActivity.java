@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ad.whatsappclone.R;
 import com.ad.whatsappclone.adapter.ChatMessageAdapter;
@@ -51,7 +52,8 @@ public class ChatDetailsActivity extends AppCompatActivity {
         final List<ChatMessages> chatMessagesList = new ArrayList<>();
         final ChatMessageAdapter adapter = new ChatMessageAdapter(chatMessagesList, ChatDetailsActivity.this);
         binding.chatDetailsRecycleView.setAdapter(adapter);
-        binding.chatDetailsRecycleView.setLayoutManager(new LinearLayoutManager(ChatDetailsActivity.this));
+        binding.chatDetailsRecycleView.setLayoutManager(new LinearLayoutManager(ChatDetailsActivity.this, RecyclerView.VERTICAL,true));
+//        binding.chatDetailsRecycleView.smoothScrollToPosition(adapter.getItemCount() - 1);
 
         final String senderRoom = senderId + receiverId;
         final String receiverRoom = receiverId + senderId;

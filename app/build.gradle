@@ -50,6 +50,8 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha15"
     implementation "androidx.camera:camera-extensions:1.0.0-alpha15"
 
+    // statis view
+    implementation 'com.devlomi:circularstatusview:1.0.1'
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'

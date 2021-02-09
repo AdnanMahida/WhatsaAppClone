@@ -11,11 +11,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ad.whatsappclone.R;
+import com.ad.whatsappclone.adapter.StatusAdapter;
+import com.ad.whatsappclone.databinding.FragmentStatusBinding;
+import com.ad.whatsappclone.models.Status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatusFragment extends Fragment {
-
+    FragmentStatusBinding binding;
 
     public StatusFragment() {
         // Required empty public constructor
@@ -32,8 +39,11 @@ public class StatusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_status, container, false);
+        binding = FragmentStatusBinding.inflate(inflater, container, false);
+        initStatusList();
+        return binding.getRoot();
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -54,4 +64,15 @@ public class StatusFragment extends Fragment {
         return true;
     }
 
+    private void initStatusList() {
+        List<Status> statusList = new ArrayList<>();
+        statusList.add(new Status());
+        statusList.add(new Status());
+        statusList.add(new Status());
+        StatusAdapter adapter = new StatusAdapter(statusList, getContext());
+        binding.statusFragmentRecycle.setAdapter(adapter);
+        binding.statusFragmentRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+    }
 }

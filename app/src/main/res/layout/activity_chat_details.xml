@@ -11,6 +11,9 @@
         android:id="@+id/chatDetailsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
@@ -22,6 +25,7 @@
             <LinearLayout
                 android:id="@+id/chatDetailsLinearBack"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"

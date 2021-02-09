@@ -27,7 +27,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginStart="@dimen/dp_72"
+        android:layout_marginStart="84dp"
         android:layout_marginEnd="@dimen/dp_14"
         android:background="?android:attr/listDivider" />
 
@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_12"
         android:layout_toEndOf="@id/mainChatProfilePic"
         android:orientation="vertical">
 
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/mainChatProfilePic"
-        android:layout_marginStart="@dimen/dp_72"
+        android:layout_marginStart="84dp"
         android:layout_marginEnd="@dimen/dp_14"
         android:background="?android:attr/listDivider" />
 
