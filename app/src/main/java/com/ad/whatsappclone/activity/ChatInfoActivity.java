@@ -1,4 +1,4 @@
-package com.ad.whatsappclone;
+package com.ad.whatsappclone.activity;
 
 import android.os.Bundle;
 
