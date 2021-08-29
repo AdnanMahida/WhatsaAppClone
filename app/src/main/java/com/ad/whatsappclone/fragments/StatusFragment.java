@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ad.whatsappclone.R;
@@ -67,12 +68,10 @@ public class StatusFragment extends Fragment {
     private void initStatusList() {
         List<Status> statusList = new ArrayList<>();
         statusList.add(new Status());
-        statusList.add(new Status());
-        statusList.add(new Status());
         StatusAdapter adapter = new StatusAdapter(statusList, getContext());
         binding.statusFragmentRecycle.setAdapter(adapter);
         binding.statusFragmentRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        binding.statusFragmentRecycle.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
     }
 }

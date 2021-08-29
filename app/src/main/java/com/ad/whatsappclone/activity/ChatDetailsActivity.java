@@ -52,7 +52,7 @@ public class ChatDetailsActivity extends AppCompatActivity {
         final List<ChatMessages> chatMessagesList = new ArrayList<>();
         final ChatMessageAdapter adapter = new ChatMessageAdapter(chatMessagesList, ChatDetailsActivity.this);
         binding.chatDetailsRecycleView.setAdapter(adapter);
-        binding.chatDetailsRecycleView.setLayoutManager(new LinearLayoutManager(ChatDetailsActivity.this, RecyclerView.VERTICAL,true));
+        binding.chatDetailsRecycleView.setLayoutManager(new LinearLayoutManager(ChatDetailsActivity.this, RecyclerView.VERTICAL, true));
 //        binding.chatDetailsRecycleView.smoothScrollToPosition(adapter.getItemCount() - 1);
 
         final String senderRoom = senderId + receiverId;

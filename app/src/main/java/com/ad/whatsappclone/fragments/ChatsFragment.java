@@ -1,7 +1,6 @@
 package com.ad.whatsappclone.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatsFragment extends Fragment {
+    private FragmentChatsBinding binding;
+    private final List<Users> usersList = new ArrayList<>();
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -42,9 +46,6 @@ public class ChatsFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    FragmentChatsBinding binding;
-    List<Users> usersList = new ArrayList<>();
-    FirebaseDatabase database;
 
     @Override
 
@@ -55,28 +56,33 @@ public class ChatsFragment extends Fragment {
         MainChatMessageAdapter adapter = new MainChatMessageAdapter(usersList, getContext());
         binding.chatsMainRecycle.setAdapter(adapter);
         binding.chatsMainRecycle.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        binding.chatsMainRecycle.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        database = FirebaseDatabase.getInstance();
+        database.getReference()
+                .child(Constraints.USER_NODE)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        usersList.clear();
 
-        database.getReference().child(Constraints.USER_NODE).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Users user = dataSnapshot.getValue(Users.class);
-                    user.setUserId(dataSnapshot.getKey());
-                    if (!user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
-                        usersList.add(user);
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Users user = dataSnapshot.getValue(Users.class);
+                            if (user != null) {
+                                user.setUserId(dataSnapshot.getKey());
+                            }
+                            if (user != null && !user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
+                                usersList.add(user);
+                            }
+                        }
+
                     }
-                    Log.d("ERrr", dataSnapshot.getKey());
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                    }
+                });
 
         return binding.getRoot();
     }
@@ -93,9 +99,6 @@ public class ChatsFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.chat_tab_setting:
                 Toast.makeText(getContext(), "Sett", Toast.LENGTH_SHORT).show();
-//                mAuth.signOut();
-//                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-//                startActivity(intent);
                 break;
         }
         return true;
