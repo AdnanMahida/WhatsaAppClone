@@ -32,7 +32,7 @@
             app:portion_color="@color/assetsColor"
             app:portion_spacing="4dp"
             app:portion_width="4dp"
-            app:portions_count="8" />
+            app:portions_count="4" />
     </RelativeLayout>
 
     <LinearLayout
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp_6"
             android:paddingBottom="@dimen/dp_6"
-            android:text="@string/my_status"
+            android:text="@string/app_name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
