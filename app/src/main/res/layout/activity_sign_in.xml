@@ -7,7 +7,7 @@
     android:background="@color/grayBackground"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity.SignInActivity">
+    tools:context=".ui.authentication.SignInActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

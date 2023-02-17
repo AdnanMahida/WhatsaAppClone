@@ -1,56 +1,38 @@
-package com.ad.whatsappclone.adapter;
+package com.ad.whatsappclone.ui.home.adapter
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.ad.whatsappclone.ui.home.fragment.CallsFragment
+import com.ad.whatsappclone.ui.home.fragment.CameraFragment
+import com.ad.whatsappclone.ui.home.fragment.ChatsFragment
+import com.ad.whatsappclone.ui.home.fragment.StatusFragment
 
-import com.ad.whatsappclone.fragments.CallsFragment;
-import com.ad.whatsappclone.fragments.CameraFragment;
-import com.ad.whatsappclone.fragments.ChatsFragment;
-import com.ad.whatsappclone.fragments.StatusFragment;
-
-public class FragmentsAdapter extends FragmentPagerAdapter {
-    public FragmentsAdapter(@NonNull FragmentManager fm) {
-        super(fm);
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new CameraFragment();
-            case 1:
-                return new ChatsFragment();
-            case 2:
-                return new StatusFragment();
-            case 3:
-                return new CallsFragment();
-            default:
-                return new ChatsFragment();
+class FragmentsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> CameraFragment()
+            2 -> StatusFragment()
+            3 -> CallsFragment()
+            else -> ChatsFragment()
         }
     }
 
-    @Override
-    public int getCount() {
-        return 4;
+    override fun getCount(): Int {
+        return 4
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        String title = null;
+    override fun getPageTitle(position: Int): CharSequence? {
+        var title: String? = null
         if (position == 1) {
-            title = "CHATS";
+            title = "CHATS"
         }
         if (position == 2) {
-            title = "STATUS";
+            title = "STATUS"
         }
         if (position == 3) {
-            title = "CALLS";
+            title = "CALLS"
         }
-        return title;
+        return title
     }
 }

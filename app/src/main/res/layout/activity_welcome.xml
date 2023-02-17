@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".activity.WelcomeActivity">
+    tools:context=".ui.authentication.WelcomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

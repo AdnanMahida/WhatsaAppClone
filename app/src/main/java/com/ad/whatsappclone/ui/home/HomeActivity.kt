@@ -1,100 +1,96 @@
-package com.ad.whatsappclone.activity;
+package com.ad.whatsappclone.ui.home
 
-import android.graphics.PorterDuff;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.graphics.PorterDuff
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.ad.whatsappclone.R
+import com.ad.whatsappclone.ui.home.adapter.FragmentsAdapter
+import com.ad.whatsappclone.databinding.ActivityHomeBinding
+import com.ad.whatsappclone.ui.BaseActivity
+import com.google.firebase.auth.FirebaseAuth
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+class HomeActivity : BaseActivity() {
 
-import com.ad.whatsappclone.R;
-import com.ad.whatsappclone.adapter.FragmentsAdapter;
-import com.ad.whatsappclone.databinding.ActivityMainBinding;
-import com.google.firebase.auth.FirebaseAuth;
+    private lateinit var binding: ActivityHomeBinding
+    private var mAuth: FirebaseAuth? = null
 
-public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
-    FirebaseAuth mAuth;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        getSupportActionBar().setElevation(0);
-        mAuth = FirebaseAuth.getInstance();
+        supportActionBar?.elevation = 0f
 
-        setUpTabLayout();
-        binding.mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        mAuth = FirebaseAuth.getInstance()
+        setUpTabLayout()
+        binding.mainViewPager.addOnPageChangeListener(object : OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
             }
 
-            @Override
-            public void onPageSelected(int position) {
+            override fun onPageSelected(position: Int) {
                 if (position == 0) {
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().hide();
-                        binding.mainTabLayout.setVisibility(View.GONE);
+                    if (supportActionBar != null) {
+                        supportActionBar!!.hide()
+                        binding.mainTabLayout.visibility = View.GONE
                     }
                 } else {
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().show();
-                        binding.mainTabLayout.setVisibility(View.VISIBLE);
+                    if (supportActionBar != null) {
+                        supportActionBar!!.show()
+                        binding.mainTabLayout.visibility = View.VISIBLE
                     }
                 }
             }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
     }
 
-    private void setUpTabLayout() {
-        binding.mainViewPager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
-        binding.mainTabLayout.setupWithViewPager(binding.mainViewPager);
-        binding.mainTabLayout.getTabAt(0).setIcon(R.drawable.ic_round_camera);
-        binding.mainTabLayout.getTabAt(0).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
-        LinearLayout layout = ((LinearLayout) ((LinearLayout) binding.mainTabLayout.getChildAt(0)).getChildAt(0));
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layout.getLayoutParams();
-        layoutParams.weight = 0.5f; // e.g. 0.5f
-        layout.setLayoutParams(layoutParams);
-        binding.mainViewPager.setCurrentItem(1);
-//        binding.mainTabLayout.setScrollPosition(1,0f,true);
+    private fun setUpTabLayout() {
+        binding.mainViewPager.adapter = FragmentsAdapter(supportFragmentManager)
+        binding.mainTabLayout.setupWithViewPager(binding.mainViewPager)
+        binding.mainTabLayout.getTabAt(0)?.setIcon(R.drawable.ic_round_camera)
+        binding.mainTabLayout.getTabAt(0)?.icon?.setColorFilter(
+            resources.getColor(android.R.color.white),
+            PorterDuff.Mode.SRC_IN
+        )
+        val layout =
+            (binding.mainTabLayout.getChildAt(0) as LinearLayout).getChildAt(0) as LinearLayout
+        val layoutParams = layout.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 0.5f // e.g. 0.5f
+        layout.layoutParams = layoutParams
+        binding.mainViewPager.currentItem = 1
+        // binding.mainTabLayout.setScrollPosition(1,0f,true);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.main_menu_search) {
-            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.main_menu_search) {
+            Toast.makeText(this@HomeActivity, getString(R.string.settings), Toast.LENGTH_SHORT)
+                .show()
         }
-        return true;
+        return true
     }
 
-    @Override
-    public void onBackPressed() {
-        if (binding.mainTabLayout.getSelectedTabPosition() != 1) {
-            binding.mainViewPager.setCurrentItem(1);
+    override fun onBackPressed() {
+        if (binding.mainTabLayout.selectedTabPosition != 1) {
+            binding.mainViewPager.currentItem = 1
         } else {
-            super.onBackPressed();
+            super.onBackPressed()
         }
     }
 }

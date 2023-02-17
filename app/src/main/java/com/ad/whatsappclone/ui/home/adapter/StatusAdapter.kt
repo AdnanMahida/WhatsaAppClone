@@ -1,64 +1,37 @@
-package com.ad.whatsappclone.adapter;
+package com.ad.whatsappclone.ui.home.adapter
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.ad.whatsappclone.R
+import com.ad.whatsappclone.models.Status
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class StatusAdapter(statusList: List<Status>) : RecyclerView.Adapter<StatusAdapter.ViewHolder>() {
+    private var statusList: List<Status> = ArrayList()
 
-import com.ad.whatsappclone.R;
-import com.ad.whatsappclone.activity.ChatDetailsActivity;
-import com.ad.whatsappclone.models.Constraints;
-import com.ad.whatsappclone.models.Status;
-import com.ad.whatsappclone.models.Users;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder> {
-    private List<Status> statusList = new ArrayList<>();
-    private Context mContext;
-
-    public StatusAdapter(List<Status> statusList, Context mContext) {
-        this.statusList = statusList;
-        this.mContext = mContext;
+    init {
+        this.statusList = statusList
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_status, parent, false);
-
-        return new ViewHolder(view);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycle_status, parent, false)
+        return ViewHolder(view)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
+    override fun getItemCount(): Int {
+        return statusList.size
     }
 
-    @Override
-    public int getItemCount() {
-        return statusList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView image;
-        private TextView title, lastMessage;
-
-        public ViewHolder(View view) {
-            super(view);
-
-
-
-
-        }
-
+    inner class ViewHolder(view: View?) : RecyclerView.ViewHolder(
+        view!!
+    ) {
+        private val image: ImageView? = null
+        private val title: TextView? = null
+        private val lastMessage: TextView? = null
     }
 }

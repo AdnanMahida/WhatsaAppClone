@@ -1,16 +1,16 @@
-package com.ad.whatsappclone.models;
+package com.ad.whatsappclone.models
 
-import android.Manifest;
+import android.Manifest
 
-public class Constraints {
-    public static final String USER_NODE = "Users";
-    public static final String CHATS_NODE = "Chats";
-
-
-    public static final int PERMISSION_REQUEST_CODE = 100;
-    public static final String[] REQUIRED_PERMISSION = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
-    public static final String USER_ID = "userId";
-    public static final String USER_PROFILE_PIC = "userProfilePic";
-    public static final String USER_NAME = "userName";
+object Constraints {
+    const val USER_NODE = "Users"
+    const val CHATS_NODE = "Chats"
+    const val PERMISSION_REQUEST_CODE = 100
+    val REQUIRED_PERMISSION = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+    const val USER_ID = "userId"
+    const val USER_PROFILE_PIC = "userProfilePic"
+    const val USER_NAME = "userName"
 }

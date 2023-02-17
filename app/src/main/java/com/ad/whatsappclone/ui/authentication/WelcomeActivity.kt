@@ -1,54 +1,47 @@
-package com.ad.whatsappclone.activity;
+package com.ad.whatsappclone.ui.authentication
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import com.ad.whatsappclone.databinding.ActivityWelcomeBinding
+import com.ad.whatsappclone.ui.BaseActivity
 
-import androidx.appcompat.app.AppCompatActivity;
+class WelcomeActivity : BaseActivity() {
+    private lateinit var binding: ActivityWelcomeBinding
 
-import com.ad.whatsappclone.databinding.ActivityWelcomeBinding;
-
-public class WelcomeActivity extends AppCompatActivity {
-    ActivityWelcomeBinding binding;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (getIntroPrefData()) {
-            startActivity(new Intent(WelcomeActivity.this, SignInActivity.class));
-            finish();
+    override fun onStart() {
+        super.onStart()
+        if (introPrefData) {
+            startActivity(Intent(this@WelcomeActivity, SignInActivity::class.java))
+            finish()
         }
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        hideActionBar()
     }
 
-    public void onAgreeBtnClick(View view) {
-        Intent intent = new Intent(WelcomeActivity.this, SignInActivity.class);
-        startActivity(intent);
-        finish();
-        saveIntroData();
+    fun onAgreeBtnClick(view: View) {
+        val intent = Intent(this@WelcomeActivity, SignInActivity::class.java)
+        startActivity(intent)
+        finish()
+        saveIntroData()
     }
 
     // TODO:shared preference data
-    private void saveIntroData() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Welcome", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isWelcomeDone", true);
-        editor.apply();
+    private fun saveIntroData() {
+        val sharedPreferences = applicationContext.getSharedPreferences("Welcome", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isWelcomeDone", true)
+        editor.apply()
     }
 
-    private boolean getIntroPrefData() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Welcome", MODE_PRIVATE);
-        return sharedPreferences.getBoolean("isWelcomeDone", false);
-    }
+    private val introPrefData: Boolean
+        get() {
+            val sharedPreferences = applicationContext.getSharedPreferences("Welcome", MODE_PRIVATE)
+            return sharedPreferences.getBoolean("isWelcomeDone", false)
+        }
 }

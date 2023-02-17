@@ -1,147 +1,141 @@
-package com.ad.whatsappclone.activity;
+package com.ad.whatsappclone.ui.authentication
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import android.app.ProgressDialog
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import com.ad.whatsappclone.R
+import com.ad.whatsappclone.databinding.ActivitySignInBinding
+import com.ad.whatsappclone.models.Constraints
+import com.ad.whatsappclone.models.Users
+import com.ad.whatsappclone.ui.BaseActivity
+import com.ad.whatsappclone.ui.home.HomeActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+class SignInActivity : BaseActivity() {
+    private lateinit var binding: ActivitySignInBinding
+    private var mAuth: FirebaseAuth? = null
+    private var mGoogleSignInClient: GoogleSignInClient? = null
+    private var database: FirebaseDatabase? = null
+    var progressDialog: ProgressDialog? = null
+    var RC_SIGN_IN = 10
 
-import com.ad.whatsappclone.R;
-import com.ad.whatsappclone.databinding.ActivitySignInBinding;
-import com.ad.whatsappclone.models.Constraints;
-import com.ad.whatsappclone.models.Users;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        hideActionBar()
 
-public class SignInActivity extends AppCompatActivity {
-    ActivitySignInBinding binding;
-    private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
-    private FirebaseDatabase database;
-    ProgressDialog progressDialog;
-
-    int RC_SIGN_IN = 10;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivitySignInBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-
-        progressDialog = new ProgressDialog(SignInActivity.this);
-        progressDialog.setTitle("Login");
-        progressDialog.setMessage("Login your account");
+        mAuth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        progressDialog = ProgressDialog(this@SignInActivity)
+        progressDialog!!.setTitle("Login")
+        progressDialog!!.setMessage("Login your account")
 
         // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        binding.signinTxtSignup.setOnClickListener(view -> startActivity(new Intent(SignInActivity.this, SignUpActivity.class)));
-
-        binding.signinBtnSignin.setOnClickListener(view -> {
-            progressDialog.show();
-            mAuth.signInWithEmailAndPassword(binding.signinEdtEmail.getText().toString(), binding.signinEdtPassword.getText().toString())
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
-                            if (task.isSuccessful()) {
-                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(SignInActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-
-        });
-
-        binding.signinBtnGoogle.setOnClickListener(view -> signIn());
-
-        if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(SignInActivity.this, MainActivity.class));
-            finish();
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        binding.signinTxtSignup.setOnClickListener { view: View? ->
+            startActivity(
+                Intent(
+                    this@SignInActivity,
+                    SignUpActivity::class.java
+                )
+            )
+        }
+        binding.signinBtnSignin.setOnClickListener { view: View? ->
+            progressDialog!!.show()
+            mAuth!!.signInWithEmailAndPassword(
+                binding.signinEdtEmail.text.toString(),
+                binding.signinEdtPassword.text.toString()
+            )
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    progressDialog!!.dismiss()
+                    if (task.isSuccessful) {
+                        val intent = Intent(this@SignInActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            task.exception!!.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        }
+        binding.signinBtnGoogle.setOnClickListener { view: View? -> signIn() }
+        if (mAuth!!.currentUser != null) {
+            startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
+            finish()
         }
     }
 
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    private fun signIn() {
+        val signInIntent = mGoogleSignInClient!!.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
+                val account = task.getResult(ApiException::class.java)
+                Log.d("TAG", "firebaseAuthWithGoogle:" + account.id)
+                firebaseAuthWithGoogle(account.idToken)
+            } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Log.w("TAG", "Google sign in failed", e);
+                Log.w("TAG", "Google sign in failed", e)
                 // ...
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithCredential:success");
-                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            Users user = new Users();
-                            user.setUserId(firebaseUser.getUid());
-                            user.setUserName(firebaseUser.getDisplayName());
-                            user.setUserProfilePic(firebaseUser.getPhotoUrl().toString());
-                            database.getReference().child(Constraints.USER_NODE).child(firebaseUser.getUid()).setValue(user);
-                            //       updateUI(user);
-                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                            Toast.makeText(SignInActivity.this, "Successfully sign in with google", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithCredential:failure", task.getException());
-//                            Snackbar.make(binding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            //   updateUI(null);
-                        }
+    private fun firebaseAuthWithGoogle(idToken: String?) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        mAuth!!.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("TAG", "signInWithCredential:success")
+                    val firebaseUser = mAuth!!.currentUser
+                    val user = Users()
+                    user.userId = firebaseUser!!.uid
+                    user.userName = firebaseUser.displayName
+                    user.userProfilePic = firebaseUser.photoUrl.toString()
+                    database!!.reference.child(Constraints.USER_NODE).child(
+                        firebaseUser.uid
+                    ).setValue(user)
+                    //       updateUI(user);
+                    startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
+                    Toast.makeText(
+                        this@SignInActivity,
+                        "Successfully sign in with google",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("TAG", "signInWithCredential:failure", task.exception)
+                    //                            Snackbar.make(binding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                    //   updateUI(null);
+                }
 
-                        // ...
-                    }
-                });
+                // ...
+            }
     }
-
 }

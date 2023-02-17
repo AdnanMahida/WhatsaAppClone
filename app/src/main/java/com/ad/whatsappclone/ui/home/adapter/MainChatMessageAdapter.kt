@@ -1,81 +1,67 @@
-package com.ad.whatsappclone.adapter;
+package com.ad.whatsappclone.ui.home.adapter
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.ad.whatsappclone.R
+import com.ad.whatsappclone.models.Users
+import com.squareup.picasso.Picasso
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class MainChatMessageAdapter(usersList: List<Users>) :
+    RecyclerView.Adapter<MainChatMessageAdapter.ViewHolder>() {
+    private var listener: OnChatListener? = null
+    private var usersList: List<Users> = ArrayList()
 
-import com.ad.whatsappclone.R;
-import com.ad.whatsappclone.activity.ChatDetailsActivity;
-import com.ad.whatsappclone.models.Constraints;
-import com.ad.whatsappclone.models.Users;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainChatMessageAdapter extends RecyclerView.Adapter<MainChatMessageAdapter.ViewHolder> {
-    private List<Users> usersList = new ArrayList<>();
-    private Context mContext;
-
-    public MainChatMessageAdapter(List<Users> usersList, Context mContext) {
-        this.usersList = usersList;
-        this.mContext = mContext;
+    init {
+        this.usersList = usersList
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_main_chat_message, parent, false);
-
-        return new ViewHolder(view);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycle_main_chat_message, parent, false)
+        return ViewHolder(view)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Users user = usersList.get(position);
-        Picasso.get().load(user.getUserProfilePic()).placeholder(R.drawable.ic_person_512dp).into(holder.image);
-        holder.title.setText(user.getUserName());
-        holder.itemView.setOnClickListener(view -> {
-            Intent i = new Intent(mContext, ChatDetailsActivity.class);
-            i.putExtra(Constraints.USER_ID, user.getUserId());
-            i.putExtra(Constraints.USER_PROFILE_PIC, user.getUserProfilePic());
-            i.putExtra(Constraints.USER_NAME, user.getUserName());
-            mContext.startActivity(i);
-        });
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val user = usersList[position]
 
-        holder.image.setOnClickListener(view -> {
-            Dialog dialog = new Dialog(mContext);
-            dialog.setContentView(R.layout.dialog_chat_details);
-            dialog.show();
-        });
-    }
+        Picasso.get().load(user.userProfilePic).placeholder(R.drawable.ic_person_512dp)
+            .into(holder.image)
+        holder.title.text = user.userName
+        holder.lastMessage.text = user.lastMessage
 
-    @Override
-    public int getItemCount() {
-        return usersList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView image;
-        private TextView title, lastMessage;
-
-        public ViewHolder(View view) {
-            super(view);
-
-            image = view.findViewById(R.id.mainChatProfilePic);
-            title = view.findViewById(R.id.mainChatTitle);
-            lastMessage = view.findViewById(R.id.mainChatLastMessage);
-
-
+        holder.itemView.setOnClickListener {
+            listener?.onMessageClick(user)
         }
+        holder.image.setOnClickListener {
+            listener?.onImageClick(user)
+        }
+    }
 
+    override fun getItemCount() = usersList.size
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView
+        val title: TextView
+        val lastMessage: TextView
+
+        init {
+            image = view.findViewById(R.id.mainChatProfilePic)
+            title = view.findViewById(R.id.mainChatTitle)
+            lastMessage = view.findViewById(R.id.mainChatLastMessage)
+        }
+    }
+
+    interface OnChatListener {
+        fun onImageClick(user: Users)
+        fun onMessageClick(user: Users)
+    }
+
+    fun setOnChatListener(listener: OnChatListener) {
+        this.listener = listener
     }
 }
