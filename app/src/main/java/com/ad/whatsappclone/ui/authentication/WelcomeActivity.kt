@@ -2,7 +2,6 @@ package com.ad.whatsappclone.ui.authentication
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.ad.whatsappclone.databinding.ActivityWelcomeBinding
 import com.ad.whatsappclone.ui.BaseActivity
 
@@ -22,10 +21,13 @@ class WelcomeActivity : BaseActivity() {
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideActionBar()
+        binding.btnAgreeContinue.setOnClickListener {
+            onAgreeBtnClick()
+        }
     }
 
-    fun onAgreeBtnClick(view: View) {
-        val intent = Intent(this@WelcomeActivity, SignInActivity::class.java)
+    private fun onAgreeBtnClick() {
+        val intent = Intent(this@WelcomeActivity, PhoneAuthActivity::class.java)
         startActivity(intent)
         finish()
         saveIntroData()

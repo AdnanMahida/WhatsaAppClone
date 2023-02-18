@@ -55,7 +55,7 @@ class SignInActivity : BaseActivity() {
                 )
             )
         }
-        binding.signinBtnSignin.setOnClickListener { view: View? ->
+        binding.signinBtnSignin.setOnClickListener {
             progressDialog!!.show()
             mAuth!!.signInWithEmailAndPassword(
                 binding.signinEdtEmail.text.toString(),

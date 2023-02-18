@@ -10,10 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsAppClone">
+        <activity
+            android:name=".PhoneAuthActivity"
+            android:exported="false" />
         <activity android:name=".ui.chat_details.ChatInfoActivity" />
         <activity android:name=".ui.chat_details.ChatDetailsActivity" />
         <activity android:name=".ui.authentication.SignInActivity" />
-        <activity android:name=".ui.authentication.WelcomeActivity"
+        <activity
+            android:name=".ui.authentication.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
