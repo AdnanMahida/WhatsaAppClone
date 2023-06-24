@@ -38,7 +38,7 @@ class StatusFragment : Fragment() {
         when (item.itemId) {
             R.id.status_tab_menu_status_privacy -> Toast.makeText(
                 context,
-                "Sett",
+                "",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -51,7 +51,7 @@ class StatusFragment : Fragment() {
         val adapter = StatusAdapter(statusList)
         binding!!.statusFragmentRecycle.adapter = adapter
         binding!!.statusFragmentRecycle.layoutManager = LinearLayoutManager(context)
-        binding!!.statusFragmentRecycle.addItemDecoration(
+        binding?.statusFragmentRecycle?.addItemDecoration(
             DividerItemDecoration(
                 context,
                 DividerItemDecoration.VERTICAL

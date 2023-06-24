@@ -1,14 +1,13 @@
 package com.ad.whatsappclone.ui.authentication
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import com.ad.whatsappclone.databinding.ActivitySignUpBinding
 import com.ad.whatsappclone.models.Constraints
 import com.ad.whatsappclone.models.Users
 import com.ad.whatsappclone.ui.BaseActivity
+import com.ad.whatsappclone.util.widget.AdProgressDialog
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +18,7 @@ class SignUpActivity : BaseActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private var mAuth: FirebaseAuth? = null
     var database: FirebaseDatabase? = null
-    var progressDialog: ProgressDialog? = null
+    var progressDialog: AdProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +27,17 @@ class SignUpActivity : BaseActivity() {
         hideActionBar()
         mAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
-        progressDialog = ProgressDialog(this@SignUpActivity)
-        progressDialog!!.setTitle("Creating Account")
-        progressDialog!!.setMessage("We are creating your account")
-        binding.signupBtnSignup.setOnClickListener { view: View? ->
-            progressDialog!!.show()
+        progressDialog = AdProgressDialog(this@SignUpActivity)
+        progressDialog?.setTitle("Creating Account")
+        progressDialog?.setMessage("We are creating your account")
+        binding.signupBtnSignup.setOnClickListener {
+            progressDialog?.show()
             mAuth!!.createUserWithEmailAndPassword(
                 binding.signupEdtEmail.text.toString(),
                 binding.signupEdtPassword.text.toString()
             )
                 .addOnCompleteListener { task: Task<AuthResult> ->
-                    progressDialog!!.dismiss()
+                    progressDialog?.dismiss()
                     if (task.isSuccessful) {
                         val user = Users(
                             binding.signupEdtUsername.text.toString(),
@@ -47,8 +46,8 @@ class SignUpActivity : BaseActivity() {
                         )
                         val userId = Objects.requireNonNull(task.result.user)?.uid
                         if (userId != null) {
-                            database!!.reference.child(Constraints.USER_NODE).child(userId)
-                                .setValue(user)
+                            database?.reference?.child(Constraints.USER_NODE)?.child(userId)
+                                ?.setValue(user)
                         }
 
                         Toast.makeText(
@@ -59,7 +58,7 @@ class SignUpActivity : BaseActivity() {
                     } else {
                         Toast.makeText(
                             this@SignUpActivity,
-                            task.exception!!.message,
+                            task.exception?.message,
                             Toast.LENGTH_SHORT
                         ).show()
                     }

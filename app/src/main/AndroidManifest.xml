@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -11,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsAppClone">
         <activity
-            android:name=".PhoneAuthActivity"
+            android:name=".ui.authentication.PhoneAuthActivity"
             android:exported="false" />
         <activity android:name=".ui.chat_details.ChatInfoActivity" />
         <activity android:name=".ui.chat_details.ChatDetailsActivity" />

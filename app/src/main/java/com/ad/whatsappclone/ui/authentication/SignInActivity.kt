@@ -1,10 +1,8 @@
 package com.ad.whatsappclone.ui.authentication
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.ad.whatsappclone.R
 import com.ad.whatsappclone.databinding.ActivitySignInBinding
@@ -12,11 +10,11 @@ import com.ad.whatsappclone.models.Constraints
 import com.ad.whatsappclone.models.Users
 import com.ad.whatsappclone.ui.BaseActivity
 import com.ad.whatsappclone.ui.home.HomeActivity
+import com.ad.whatsappclone.util.widget.AdProgressDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
@@ -26,7 +24,7 @@ class SignInActivity : BaseActivity() {
     private var mAuth: FirebaseAuth? = null
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private var database: FirebaseDatabase? = null
-    var progressDialog: ProgressDialog? = null
+    var progressDialog: AdProgressDialog? = null
     var RC_SIGN_IN = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +35,9 @@ class SignInActivity : BaseActivity() {
 
         mAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
-        progressDialog = ProgressDialog(this@SignInActivity)
-        progressDialog!!.setTitle("Login")
-        progressDialog!!.setMessage("Login your account")
+        progressDialog = AdProgressDialog(this@SignInActivity)
+        progressDialog?.setTitle("Login")
+        progressDialog?.setMessage("Login your account")
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -47,7 +45,7 @@ class SignInActivity : BaseActivity() {
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        binding.signinTxtSignup.setOnClickListener { view: View? ->
+        binding.signinTxtSignup.setOnClickListener {
             startActivity(
                 Intent(
                     this@SignInActivity,
@@ -56,13 +54,13 @@ class SignInActivity : BaseActivity() {
             )
         }
         binding.signinBtnSignin.setOnClickListener {
-            progressDialog!!.show()
+            progressDialog?.show()
             mAuth!!.signInWithEmailAndPassword(
                 binding.signinEdtEmail.text.toString(),
                 binding.signinEdtPassword.text.toString()
             )
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    progressDialog!!.dismiss()
+                .addOnCompleteListener { task ->
+                    progressDialog?.dismiss()
                     if (task.isSuccessful) {
                         val intent = Intent(this@SignInActivity, HomeActivity::class.java)
                         startActivity(intent)
@@ -73,10 +71,10 @@ class SignInActivity : BaseActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                })
+                }
         }
-        binding.signinBtnGoogle.setOnClickListener { view: View? -> signIn() }
-        if (mAuth!!.currentUser != null) {
+        binding.signinBtnGoogle.setOnClickListener { signIn() }
+        if (mAuth?.currentUser != null) {
             startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
             finish()
         }
