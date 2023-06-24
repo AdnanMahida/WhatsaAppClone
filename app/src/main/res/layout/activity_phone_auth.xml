@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.authentication.PhoneAuthActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
+        android:text="@string/whatsapp_will_need_yo_verify_your_phone_number_what_s_my_n_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edtCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_48sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:drawablePadding="@dimen/_6sdp"
+        android:drawableTint="@color/assetsColor"
+        android:enabled="false"
+        android:padding="@dimen/_6sdp"
+        android:text="@string/india"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:drawableEndCompat="@drawable/ic_arrow_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:enabled="false"
+        android:padding="@dimen/_6sdp"
+        android:text="+91"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="@+id/edtCountry"
+        app:layout_constraintTop_toBottomOf="@+id/edtCountry" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_6sdp"
+        android:drawableTint="@color/assetsColor"
+        android:hint="phone number"
+        android:padding="@dimen/_6sdp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText2"
+        app:layout_constraintEnd_toEndOf="@+id/edtCountry"
+        app:layout_constraintStart_toEndOf="@+id/textInputEditText2"
+        app:layout_constraintTop_toTopOf="@+id/textInputEditText2" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_48sdp"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

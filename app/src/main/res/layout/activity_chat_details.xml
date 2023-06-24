@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_chat"
-    tools:context=".activity.ChatDetailsActivity">
+    tools:context=".ui.chat_details.ChatDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/chatDetailsToolbar"

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ad.whatsappclone">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -11,18 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsAppClone">
-        <activity android:name=".activity.ChatInfoActivity"></activity>
-        <activity android:name=".activity.ChatDetailsActivity" />
-        <activity android:name=".activity.SignInActivity" />
-        <activity android:name=".activity.WelcomeActivity">
+        <activity
+            android:name=".ui.authentication.PhoneAuthActivity"
+            android:exported="false" />
+        <activity android:name=".ui.chat_details.ChatInfoActivity" />
+        <activity android:name=".ui.chat_details.ChatDetailsActivity" />
+        <activity android:name=".ui.authentication.SignInActivity" />
+        <activity
+            android:name=".ui.authentication.WelcomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SignUpActivity" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".ui.authentication.SignUpActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
     </application>
 
 </manifest>

@@ -24,7 +24,6 @@
         tools:targetApi="m" />
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,9 +39,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp_6"
             android:paddingBottom="@dimen/dp_6"
-            android:text="TextView"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Title" />
 
         <TextView
             android:id="@+id/mainChatLastMessage"
@@ -50,7 +49,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp_3"
             android:paddingBottom="@dimen/dp_3"
-            android:text="TextView" />
+            tools:text="Last message" />
 
 
     </LinearLayout>
